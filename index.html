@@ -136,6 +136,7 @@ function calculate() {
 
   document.getElementById("result").innerHTML = `
     <div class="big">😳 Etsy takes: $${fees.toFixed(2)}</div>
+💸 That’s ${((fees / gross) * 100).toFixed(1)}% of your revenue<br><br>
     You keep: <b>$${profit.toFixed(2)}</b><br>
     Margin: ${margin.toFixed(1)}%<br><br>
 
@@ -144,16 +145,31 @@ function calculate() {
     🔥 You're working for <b>$${profit.toFixed(2)}</b> on a $${gross.toFixed(2)} sale<br><br>
 
     💡 To hit 30% margin:<br>
-    👉 Charge: <b>$${suggestedPrice.toFixed(2)}</b><br><br>
+    👉 You could lower price to: <b>$${suggestedPrice.toFixed(2)}</b> and still keep 30% margin
 
     📈 ${salesNeeded} sales = $1,000/month<br>
 
     <div class="share">👀 Share this with another Etsy seller</div>
-
+    <div class="share">
+  <button onclick="shareResult()" style="margin-top:10px;padding:10px;border-radius:8px;border:none;background:#22c55e;color:black;font-weight:bold;">
+    📤 Share Results
+  </button>
+</div>
     <div class="cta">
       💰 Want better margins? Create listings that actually make profit.
     </div>
   `;
+}
+  function shareResult() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Etsy Fee Calculator',
+      text: 'Check how much Etsy actually takes from your sales 😳',
+      url: window.location.href
+    });
+  } else {
+    alert("Sharing not supported on this device");
+  }
 }
 </script>
 
