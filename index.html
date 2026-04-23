@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etsy Fee Calculator</title>
+<title>💰 Etsy Profit Calculator</title>
 
 <style>
 body {
@@ -100,6 +100,9 @@ function calculate() {
   let profit = gross - fees - cost - shipcost;
 
   let margin = gross > 0 ? (profit / gross) * 100 : 0;
+  
+  let message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
+  
   let percent = gross > 0 ? (fees / gross) * 100 : 0;
 
   let salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
