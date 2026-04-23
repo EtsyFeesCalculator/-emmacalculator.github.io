@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💰 Etsy Profit Calculator</title>
+<title>Etsy Profit Calculator – How Much Does Etsy Take?</title>
 
 <style>
 body {
@@ -52,8 +52,6 @@ button {
   line-height:1.6;
 }
 
-.good { color:#4ade80; }
-
 .share-btn {
   margin-top:10px;
   padding:12px;
@@ -70,7 +68,7 @@ button {
 <body>
 
 <div class="container">
-  <h2>💰 Etsy Fee Calculator</h2>
+  <h2>💰 Etsy Profit Calculator</h2>
 
   <input id="price" placeholder="Sale Price ($)">
   <input id="shipping" placeholder="Shipping Charged ($)">
@@ -82,9 +80,9 @@ button {
   <div id="result" class="result"></div>
 </div>
 
-<!-- ✅ Footer (correct placement) -->
+<!-- Footer -->
 <div style="text-align:center;font-size:12px;opacity:0.5;margin-top:20px;">
-  © 2026 Etsy Fee Calculator · Not affiliated with Etsy
+  © 2026 Etsy Profit Calculator · Not affiliated with Etsy
 </div>
 
 <script>
@@ -100,24 +98,21 @@ function calculate() {
   let profit = gross - fees - cost - shipcost;
 
   let margin = gross > 0 ? (profit / gross) * 100 : 0;
-  
-  let message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
-  
   let percent = gross > 0 ? (fees / gross) * 100 : 0;
 
   let salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
   let suggestedPrice = (cost + shipcost + fees) / 0.7;
 
   let message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
+  let color = margin >= 30 ? "#4ade80" : "#f87171";
 
   document.getElementById("result").innerHTML =
     "😳 Etsy takes: $" + fees.toFixed(2) + "<br>" +
     "💸 That’s " + percent.toFixed(1) + "% of your revenue<br><br>" +
 
     "You keep: <b>$" + profit.toFixed(2) + "</b><br>" +
-    "Margin: " + margin.toFixed(1) + "%<br><br>" +
-
-    "<span class='good'>" + message + "</span><br><br>" +
+    "Margin: " + margin.toFixed(1) + "%<br>" +
+    "<span style='color:" + color + "'>" + message + "</span><br><br>" +
 
     "🔥 You're working for <b>$" + profit.toFixed(2) + "</b> on a $" + gross.toFixed(2) + " sale<br><br>" +
 
@@ -134,7 +129,7 @@ function calculate() {
 function shareResult() {
   if (navigator.share) {
     navigator.share({
-      title: 'Etsy Fee Calculator',
+      title: 'Etsy Profit Calculator',
       text: '😳 I just realized how much Etsy takes from each sale… try this',
       url: window.location.href
     });
