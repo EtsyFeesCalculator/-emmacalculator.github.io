@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,7 +159,7 @@ function calculate() {
     💡 To maintain 30% margin:<br>
     👉 You could lower price to: <b>$${suggestedPrice.toFixed(2)}</b> and still keep 30% margin<br><br>
 
-📈 ${salesNeeded} sales = $1,000/month<br>
+    📈 ${salesNeeded} sales = $1,000/month<br>
 
     <div class="share">👀 Share this with another Etsy seller</div>
 
@@ -180,7 +179,7 @@ function shareResult() {
   if (navigator.share) {
     navigator.share({
       title: 'Etsy Fee Calculator',
-      text: 'text: '😳 I just realized how much Etsy takes from each sale… try this calculator', 
+      text: '😳 I just realized how much Etsy takes from each sale… try this calculator',
       url: window.location.href
     });
   } else {
