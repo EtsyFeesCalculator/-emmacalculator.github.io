@@ -60,7 +60,6 @@ button {
   border-radius:10px;
   font-weight:bold;
   width:100%;
-  font-size:15px;
 }
 </style>
 </head>
@@ -75,18 +74,18 @@ button {
   <input id="cost" placeholder="Your Cost (materials + labor)">
   <input id="shipcost" placeholder="Your Shipping Cost">
 
-  <button onclick="calculate()">Calculate</button>
+  <button id="calcBtn">Calculate</button>
 
   <div id="result" class="result"></div>
 </div>
 
-<!-- Footer -->
 <div style="text-align:center;font-size:12px;opacity:0.5;margin-top:20px;">
   © 2026 Etsy Profit Calculator · Not affiliated with Etsy
 </div>
 
 <script>
-function calculate() {
+document.getElementById("calcBtn").addEventListener("click", function () {
+
   var price = parseFloat(document.getElementById("price").value) || 0;
   var shipping = parseFloat(document.getElementById("shipping").value) || 0;
   var cost = parseFloat(document.getElementById("cost").value) || 0;
@@ -126,13 +125,13 @@ function calculate() {
   resultHTML += "<button class='share-btn' onclick='shareResult()'>📤 Share Results</button>";
 
   document.getElementById("result").innerHTML = resultHTML;
-}
+});
 
 function shareResult() {
   if (navigator.share) {
     navigator.share({
       title: 'Etsy Profit Calculator',
-      text: '😳 I just realized how much Etsy takes…',
+      text: '😳 I just realized how much Etsy takes… try this',
       url: window.location.href
     });
   } else {
