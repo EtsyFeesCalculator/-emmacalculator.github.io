@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +78,7 @@
     .share {
       margin-top: 15px;
       font-size: 13px;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     .cta {
@@ -86,6 +87,17 @@
       background: #111827;
       border-radius: 10px;
       font-size: 13px;
+    }
+
+    .share-btn {
+      margin-top:10px;
+      padding:10px;
+      border-radius:8px;
+      border:none;
+      background:#22c55e;
+      color:black;
+      font-weight:bold;
+      width:100%;
     }
   </style>
 </head>
@@ -136,7 +148,8 @@ function calculate() {
 
   document.getElementById("result").innerHTML = `
     <div class="big">😳 Etsy takes: $${fees.toFixed(2)}</div>
-💸 That’s ${((fees / gross) * 100).toFixed(1)}% of your revenue<br><br>
+    💸 That’s ${((fees / gross) * 100).toFixed(1)}% of your revenue<br><br>
+
     You keep: <b>$${profit.toFixed(2)}</b><br>
     Margin: ${margin.toFixed(1)}%<br><br>
 
@@ -144,23 +157,26 @@ function calculate() {
 
     🔥 You're working for <b>$${profit.toFixed(2)}</b> on a $${gross.toFixed(2)} sale<br><br>
 
-    💡 To hit 30% margin:<br>
-    👉 You could lower price to: <b>$${suggestedPrice.toFixed(2)}</b> and still keep 30% margin
+    💡 To maintain 30% margin:<br>
+    👉 You could lower price to: <b>$${suggestedPrice.toFixed(2)}</b><br><br>
 
     📈 ${salesNeeded} sales = $1,000/month<br>
 
     <div class="share">👀 Share this with another Etsy seller</div>
-    <div class="share">
-  <button onclick="shareResult()" style="margin-top:10px;padding:10px;border-radius:8px;border:none;background:#22c55e;color:black;font-weight:bold;">
-    📤 Share Results
-  </button>
-</div>
+
+    <button class="share-btn" onclick="shareResult()">📤 Share Results</button>
+
     <div class="cta">
-      💰 Want better margins? Create listings that actually make profit.
+      💰 Want listings that actually make profit? (coming soon)
+    </div>
+
+    <div style="font-size:12px;opacity:0.6;margin-top:10px;">
+      Not affiliated with Etsy. Based on current US fee structure.
     </div>
   `;
 }
-  function shareResult() {
+
+function shareResult() {
   if (navigator.share) {
     navigator.share({
       title: 'Etsy Fee Calculator',
