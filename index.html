@@ -21,12 +21,17 @@ body {
   border-radius:16px;
 }
 
+h2 {
+  margin-bottom:15px;
+}
+
 input {
   width:100%;
   padding:12px;
   margin:8px 0;
   border-radius:8px;
   border:none;
+  font-size:14px;
 }
 
 button {
@@ -47,14 +52,17 @@ button {
   line-height:1.6;
 }
 
+.good { color:#4ade80; }
+
 .share-btn {
   margin-top:10px;
-  padding:10px;
+  padding:12px;
   background:#22c55e;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   font-weight:bold;
   width:100%;
+  font-size:15px;
 }
 </style>
 </head>
@@ -64,18 +72,19 @@ button {
 <div class="container">
   <h2>💰 Etsy Fee Calculator</h2>
 
-  <input id="price" placeholder="Sale Price">
-  <input id="shipping" placeholder="Shipping Charged">
-  <input id="cost" placeholder="Your Cost">
-  <input id="shipcost" placeholder="Shipping Cost">
+  <input id="price" placeholder="Sale Price ($)">
+  <input id="shipping" placeholder="Shipping Charged ($)">
+  <input id="cost" placeholder="Your Cost (materials + labor)">
+  <input id="shipcost" placeholder="Your Shipping Cost">
 
   <button onclick="calculate()">Calculate</button>
 
   <div id="result" class="result"></div>
 </div>
 
+<!-- ✅ Footer (correct placement) -->
 <div style="text-align:center;font-size:12px;opacity:0.5;margin-top:20px;">
-  © 2026 Etsy Fees Calculator · Not affiliated with Etsy
+  © 2026 Etsy Fee Calculator · Not affiliated with Etsy
 </div>
 
 <script>
@@ -89,22 +98,28 @@ function calculate() {
 
   let fees = 0.20 + (gross * 0.065) + (gross * 0.03 + 0.25);
   let profit = gross - fees - cost - shipcost;
+
   let margin = gross > 0 ? (profit / gross) * 100 : 0;
   let percent = gross > 0 ? (fees / gross) * 100 : 0;
 
   let salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
   let suggestedPrice = (cost + shipcost + fees) / 0.7;
 
+  let message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
+
   document.getElementById("result").innerHTML =
     "😳 Etsy takes: $" + fees.toFixed(2) + "<br>" +
     "💸 That’s " + percent.toFixed(1) + "% of your revenue<br><br>" +
 
-    "You keep: $" + profit.toFixed(2) + "<br>" +
+    "You keep: <b>$" + profit.toFixed(2) + "</b><br>" +
     "Margin: " + margin.toFixed(1) + "%<br><br>" +
 
-    "🔥 You're working for $" + profit.toFixed(2) + " on a $" + gross.toFixed(2) + " sale<br><br>" +
+    "<span class='good'>" + message + "</span><br><br>" +
 
-    "💡 You could lower price to: $" + suggestedPrice.toFixed(2) + " and still keep 30% margin<br><br>" +
+    "🔥 You're working for <b>$" + profit.toFixed(2) + "</b> on a $" + gross.toFixed(2) + " sale<br><br>" +
+
+    "💡 To maintain 30% margin:<br>" +
+    "👉 You could lower price to: <b>$" + suggestedPrice.toFixed(2) + "</b> and still keep 30% margin<br><br>" +
 
     "📈 " + salesNeeded + " sales = $1,000/month<br><br>" +
 
@@ -116,12 +131,12 @@ function calculate() {
 function shareResult() {
   if (navigator.share) {
     navigator.share({
-      title: 'Etsy Calculator',
-      text: '😳 I just realized how much Etsy takes… try this',
+      title: 'Etsy Fee Calculator',
+      text: '😳 I just realized how much Etsy takes from each sale… try this',
       url: window.location.href
     });
   } else {
-    alert("Sharing not supported");
+    alert("Sharing not supported on this device");
   }
 }
 </script>
