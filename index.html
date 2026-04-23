@@ -87,54 +87,56 @@ button {
 
 <script>
 function calculate() {
-  let price = parseFloat(document.getElementById("price").value) || 0;
-  let shipping = parseFloat(document.getElementById("shipping").value) || 0;
-  let cost = parseFloat(document.getElementById("cost").value) || 0;
-  let shipcost = parseFloat(document.getElementById("shipcost").value) || 0;
+  var price = parseFloat(document.getElementById("price").value) || 0;
+  var shipping = parseFloat(document.getElementById("shipping").value) || 0;
+  var cost = parseFloat(document.getElementById("cost").value) || 0;
+  var shipcost = parseFloat(document.getElementById("shipcost").value) || 0;
 
-  let gross = price + shipping;
+  var gross = price + shipping;
 
-  let fees = 0.20 + (gross * 0.065) + (gross * 0.03 + 0.25);
-  let profit = gross - fees - cost - shipcost;
+  var fees = 0.20 + (gross * 0.065) + (gross * 0.03 + 0.25);
+  var profit = gross - fees - cost - shipcost;
 
-  let margin = gross > 0 ? (profit / gross) * 100 : 0;
-  let percent = gross > 0 ? (fees / gross) * 100 : 0;
+  var margin = gross > 0 ? (profit / gross) * 100 : 0;
+  var percent = gross > 0 ? (fees / gross) * 100 : 0;
 
-  let salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
-  let suggestedPrice = (cost + shipcost + fees) / 0.7;
+  var salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
+  var suggestedPrice = (cost + shipcost + fees) / 0.7;
 
-  let message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
-  let color = margin >= 30 ? "#4ade80" : "#f87171";
+  var message = margin >= 30 ? "Good margin ✅" : "Low margin ❌";
+  var color = margin >= 30 ? "#4ade80" : "#f87171";
 
-  document.getElementById("result").innerHTML =
-    "😳 Etsy takes: $" + fees.toFixed(2) + "<br>" +
-    "💸 That’s " + percent.toFixed(1) + "% of your revenue<br><br>" +
+  var resultHTML = "";
 
-    "You keep: <b>$" + profit.toFixed(2) + "</b><br>" +
-    "Margin: " + margin.toFixed(1) + "%<br>" +
-    "<span style='color:" + color + "'>" + message + "</span><br><br>" +
+  resultHTML += "😳 Etsy takes: $" + fees.toFixed(2) + "<br>";
+  resultHTML += "💸 That’s " + percent.toFixed(1) + "% of your revenue<br><br>";
 
-    "🔥 You're working for <b>$" + profit.toFixed(2) + "</b> on a $" + gross.toFixed(2) + " sale<br><br>" +
+  resultHTML += "You keep: <b>$" + profit.toFixed(2) + "</b><br>";
+  resultHTML += "Margin: " + margin.toFixed(1) + "%<br>";
+  resultHTML += "<span style='color:" + color + "'>" + message + "</span><br><br>";
 
-    "💡 To maintain 30% margin:<br>" +
-    "👉 You could lower price to: <b>$" + suggestedPrice.toFixed(2) + "</b> and still keep 30% margin<br><br>" +
+  resultHTML += "🔥 You're working for <b>$" + profit.toFixed(2) + "</b> on a $" + gross.toFixed(2) + " sale<br><br>";
 
-    "📈 " + salesNeeded + " sales = $1,000/month<br><br>" +
+  resultHTML += "💡 To maintain 30% margin:<br>";
+  resultHTML += "👉 You could lower price to: <b>$" + suggestedPrice.toFixed(2) + "</b> and still keep 30% margin<br><br>";
 
-    "👀 Share this with another Etsy seller<br>" +
+  resultHTML += "📈 " + salesNeeded + " sales = $1,000/month<br><br>";
 
-    "<button class='share-btn' onclick='shareResult()'>📤 Share Results</button>";
+  resultHTML += "👀 Share this with another Etsy seller<br>";
+  resultHTML += "<button class='share-btn' onclick='shareResult()'>📤 Share Results</button>";
+
+  document.getElementById("result").innerHTML = resultHTML;
 }
 
 function shareResult() {
   if (navigator.share) {
     navigator.share({
       title: 'Etsy Profit Calculator',
-      text: '😳 I just realized how much Etsy takes from each sale… try this',
+      text: '😳 I just realized how much Etsy takes…',
       url: window.location.href
     });
   } else {
-    alert("Sharing not supported on this device");
+    alert("Sharing not supported");
   }
 }
 </script>
