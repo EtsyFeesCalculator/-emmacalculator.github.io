@@ -6,28 +6,72 @@
 <title>Etsy Fee Calculator</title>
 
 <style>
-body {font-family: Arial; background:#0f172a; color:white; padding:20px;}
-.container {max-width:420px;margin:auto;background:#1e293b;padding:20px;border-radius:16px;}
-input {width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none;}
-button {width:100%;padding:14px;background:#22c55e;border:none;border-radius:10px;font-weight:bold;}
-.result {margin-top:20px;background:#020617;padding:15px;border-radius:12px;}
-.share-btn {margin-top:10px;padding:10px;background:#22c55e;border:none;border-radius:8px;font-weight:bold;width:100%;}
+body {
+  font-family: Arial, sans-serif;
+  background:#0f172a;
+  color:white;
+  padding:20px;
+}
+
+.container {
+  max-width:420px;
+  margin:auto;
+  background:#1e293b;
+  padding:20px;
+  border-radius:16px;
+}
+
+input {
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button {
+  width:100%;
+  padding:14px;
+  background:#22c55e;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.result {
+  margin-top:20px;
+  background:#020617;
+  padding:15px;
+  border-radius:12px;
+  line-height:1.6;
+}
+
+.share-btn {
+  margin-top:10px;
+  padding:10px;
+  background:#22c55e;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  width:100%;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h2>💰 Etsy Fee Calculator</h2>
+  <h2>💰 Etsy Fee Calculator</h2>
 
-<input id="price" placeholder="Sale Price">
-<input id="shipping" placeholder="Shipping Charged">
-<input id="cost" placeholder="Your Cost">
-<input id="shipcost" placeholder="Shipping Cost">
+  <input id="price" placeholder="Sale Price">
+  <input id="shipping" placeholder="Shipping Charged">
+  <input id="cost" placeholder="Your Cost">
+  <input id="shipcost" placeholder="Shipping Cost">
 
-<button onclick="calculate()">Calculate</button>
+  <button onclick="calculate()">Calculate</button>
 
-<div id="result" class="result"></div>
+  <div id="result" class="result"></div>
 </div>
 
 <div style="text-align:center;font-size:12px;opacity:0.5;margin-top:20px;">
@@ -46,20 +90,21 @@ function calculate() {
   let fees = 0.20 + (gross * 0.065) + (gross * 0.03 + 0.25);
   let profit = gross - fees - cost - shipcost;
   let margin = gross > 0 ? (profit / gross) * 100 : 0;
+  let percent = gross > 0 ? (fees / gross) * 100 : 0;
 
   let salesNeeded = profit > 0 ? Math.ceil(1000 / profit) : "∞";
   let suggestedPrice = (cost + shipcost + fees) / 0.7;
 
   document.getElementById("result").innerHTML =
     "😳 Etsy takes: $" + fees.toFixed(2) + "<br>" +
-    "💸 That’s " + ((fees / gross) * 100).toFixed(1) + "% of your revenue<br><br>" +
+    "💸 That’s " + percent.toFixed(1) + "% of your revenue<br><br>" +
 
     "You keep: $" + profit.toFixed(2) + "<br>" +
     "Margin: " + margin.toFixed(1) + "%<br><br>" +
 
-    "🔥 You're working for $" + profit.toFixed(2) + "<br><br>" +
+    "🔥 You're working for $" + profit.toFixed(2) + " on a $" + gross.toFixed(2) + " sale<br><br>" +
 
-    "💡 You could lower price to: $" + suggestedPrice.toFixed(2) + "<br><br>" +
+    "💡 You could lower price to: $" + suggestedPrice.toFixed(2) + " and still keep 30% margin<br><br>" +
 
     "📈 " + salesNeeded + " sales = $1,000/month<br><br>" +
 
@@ -72,9 +117,11 @@ function shareResult() {
   if (navigator.share) {
     navigator.share({
       title: 'Etsy Calculator',
-      text: '😳 I just realized how much Etsy takes…',
+      text: '😳 I just realized how much Etsy takes… try this',
       url: window.location.href
     });
+  } else {
+    alert("Sharing not supported");
   }
 }
 </script>
